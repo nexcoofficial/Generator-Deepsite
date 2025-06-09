@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prompt Generator Deepsite Otomatis</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+      background: #f9f9f9;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    button {
+      margin-top: 2rem;
+      padding: 1rem;
+      font-size: 1rem;
+      background: #1d4ed8;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #output {
+      margin-top: 2rem;
+      white-space: pre-wrap;
+      background: #fff;
+      padding: 1rem;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h1>Prompt Generator Deepsite</h1>
+  <label>Nama Produk:</label>
+  <input type="text" id="productName" />
+
+  <label>Kategori Produk:</label>
+  <select id="category">
+    <option>Fashion</option>
+    <option>Beauty</option>
+    <option>Electronics</option>
+    <option>Hijab</option>
+    <option>Obat-obatan</option>
+    <option>Produk Laki-laki</option>
+    <option>Produk Perempuan</option>
+    <option>Produk Unisex</option>
+    <option>Universal</option>
+  </select>
+
+  <label>Style Tampilan:</label>
+  <select id="style">
+    <option>Premium</option>
+    <option>Elegan</option>
+    <option>Modern Clean</option>
+    <option>Terserah Saya</option>
+  </select>
+
+  <label>Link Order (orderonline.id):</label>
+  <input type="text" id="orderLink" />
+
+  <label>Link Mentahan (opsional):</label>
+  <input type="text" id="rawLink" />
+
+  <label>Link GIF Galeri Model (opsional):</label>
+  <input type="text" id="gifLink" />
+
+  <label>Harga Modal:</label>
+  <input type="text" id="basePrice" />
+
+  <label>Link Gambar Testimoni (opsional, pisahkan dengan koma):</label>
+  <textarea id="testiLinks"></textarea>
+
+  <button onclick="generatePrompt()">🎯 Generate Prompt</button>
+  <div id="output"></div>
+
+  <script>
+    function generatePrompt() {
+      const name = document.getElementById('productName').value;
+      const category = document.getElementById('category').value;
+      const style = document.getElementById('style').value;
+      const orderLink = document.getElementById('orderLink').value;
+      const rawLink = document.getElementById('rawLink').value;
+      const gifLink = document.getElementById('gifLink').value;
+      const basePrice = document.getElementById('basePrice').value;
+      const testiLinks = document.getElementById('testiLinks').value.split(',').map(t => t.trim()).filter(t => t);
+
+      let prompt = `🎯 BUATKAN LANDING PAGE PREMIUM OTOMATIS UNTUK PRODUK BERIKUT:\n\n` +
+      `📌 NAMA PRODUK: ${name}\n` +
+      `🏷️ KATEGORI: ${category}\n` +
+      `🎨 TEMA: ${style}\n` +
+      `🔗 LINK ORDER: ${orderLink}\n` +
+      `📂 LINK MENTAHAN: ${rawLink || '(Tidak ada)'}\n` +
+      `📺 LINK GIF GALERI MODEL: ${gifLink || '(Tidak ada)'}\n` +
+      `💰 HARGA MODAL: ${basePrice}\n\n` +
+      `🧱 STRUKTUR:\n` +
+      `1. Headline\n2. Gambar utama\n3. Fitur ✅\n4. Galeri (jpg/gif)\n5. Keunggulan\n6. Testimoni slider\n7. Countdown opsional\n8. Harga (jual = modal + 150rb, coret = 1.5x)\n9. CTA BELI SEKARANG ke ${orderLink}\n\n` +
+      `🗣️ TESTIMONI OTOMATIS:\n- Slider auto-scroll\n- Nama Indonesia\n- Contoh:\n  • "Produknya bagus dan elegan." - Dewi A.\n  • "Pengiriman cepat dan aman." - Budi S.\n\n` +
+      `🖼️ LINK GAMBAR TESTIMONI:\n` + testiLinks.map((t, i) => `${i + 1}. ${t}`).join('\n') + `\n\n` +
+      `✨ TUJUAN:\nLanding page siap iklan, auto-premium, konversi tinggi, bisa digunakan untuk semua kategori produk.`;
+
+      document.getElementById('output').innerText = prompt;
+    }
+  </script>
+</body>
+</html>
